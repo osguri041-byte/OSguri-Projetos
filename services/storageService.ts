@@ -1,9 +1,12 @@
-import { Transaction, UserSettings } from '../types';
-import { DEFAULT_SETTINGS } from '../constants';
+import { Transaction, UserSettings, Budget, CategoryItem } from '../types';
+import { DEFAULT_SETTINGS, DEFAULT_CATEGORIES_LIST } from '../constants';
 
 const STORAGE_KEYS = {
+  TRANSLATIONS: 'dindin_transactions', // Legacy key name kept to avoid data loss, though it stores transactions
   TRANSACTIONS: 'dindin_transactions',
-  SETTINGS: 'dindin_settings'
+  SETTINGS: 'dindin_settings',
+  BUDGETS: 'dindin_budgets',
+  CATEGORIES: 'dindin_categories'
 };
 
 export const getStoredTransactions = (): Transaction[] => {
@@ -21,6 +24,42 @@ export const saveTransactions = (transactions: Transaction[]) => {
     localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(transactions));
   } catch (error) {
     console.error('Error saving transactions', error);
+  }
+};
+
+export const getStoredBudgets = (): Budget[] => {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.BUDGETS);
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error('Error loading budgets', error);
+    return [];
+  }
+};
+
+export const saveBudgets = (budgets: Budget[]) => {
+  try {
+    localStorage.setItem(STORAGE_KEYS.BUDGETS, JSON.stringify(budgets));
+  } catch (error) {
+    console.error('Error saving budgets', error);
+  }
+};
+
+export const getStoredCategories = (): CategoryItem[] => {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.CATEGORIES);
+    return data ? JSON.parse(data) : DEFAULT_CATEGORIES_LIST;
+  } catch (error) {
+    console.error('Error loading categories', error);
+    return DEFAULT_CATEGORIES_LIST;
+  }
+};
+
+export const saveCategories = (categories: CategoryItem[]) => {
+  try {
+    localStorage.setItem(STORAGE_KEYS.CATEGORIES, JSON.stringify(categories));
+  } catch (error) {
+    console.error('Error saving categories', error);
   }
 };
 

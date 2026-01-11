@@ -1,5 +1,7 @@
 {
   "name": "DinDin",
   "description": "Uma ferramenta completa para controle financeiro pessoal. Organize receitas, despesas, gere relatórios e obtenha insights inteligentes.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "microphone"
+  ]
 }
